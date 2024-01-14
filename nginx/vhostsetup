@@ -1,0 +1,30 @@
+#!/bin/bash
+clear
+echo "############  Script to setup nginx vhostsetup #############"
+if [ ! -f /etc/nginx/sites-available/default ]; then
+    echo "config file does not exist contact helpdesk!"
+    exit 0
+fi
+while true 
+do
+printf " Press v if you want to setup a new domain only \n"
+printf " Press x to exit \n"
+read -p "Choose these options:" option
+case $option in 
+v|V)
+ read -p "Enter your domain name:" dn
+ fname=`echo $dn | tr -d '.'`
+ sed  "s/localhost/$dn www.$dn/g"  /etc/nginx/sites-available/default > /etc/nginx/sites-enabled/$fname
+ sed -i  "s#/www/html#/www/$fname#g" /etc/nginx/sites-enabled/$fname
+ mkdir -p /var/www/$fname
+ chown -R www-data:www-data /var/www/$fname
+  clear
+ printf "Domain has been setup put your files here at /var/www/$fname.\n"
+
+ exit 0
+;;
+
+x|X)exit;;
+*) echo "Wrong choice! Please select correct option menu!";;
+esac
+done
