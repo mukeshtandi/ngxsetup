@@ -35,6 +35,7 @@ apt-get install nginx -y
 apt-get install php7.4 -y
 apt-get install php-fpm php-mysql php-gd php-curl php php-cgi php-cli php-json php-memcached php-mbstring php-xml memcached -y
 cp /root/ngxsetup/nginx/vhostsetup /usr/local/bin/vhostsetup
-
+cp /root/ngxsetup/nginx/default /etc/nginx/sites-available/
+chmod -R 0755 /usr/local/bin/vhostsetup
 # We're done !
 echo "Installation done."
