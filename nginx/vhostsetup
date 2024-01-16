@@ -30,9 +30,10 @@ vs|VS|vS|Vs)
  read -p "Give your domain name:" dn
  fname=`echo $dn | tr -d '.'`
  sed  "s/localhost/$dn www.$dn/g"  /etc/nginx/sites-available/defaultssl > /etc/nginx/sites-enabled/$fname
- sed -i  "s#/www/html#/www/$fname#g" /etc/nginx/sites-enabled/$fname
+ sed -i  "s#/www/html#/www/$fname#g; s#/certs/apache-selfsigned#/certs/$fname#g; s#/private/apache-selfsigned#/private/$fname#g" /etc/nginx/sites-enabled/$fname
  mkdir -p /var/www/$fname
  chown -R www-data:www-data /var/www/$fname
+ openssl req -subj "/CN=$dn/O=$fname/C=IN" -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -keyout /etc/ssl/private/$fname.key -out /etc/ssl/certs/$fname.crt
   clear
  echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
  printf "Domain has been setup put your files here at /var/www/$fname.\n"

@@ -20,9 +20,6 @@ fi
 check_user
 check_pwd
 
-# generate temp ssl 
-openssl req -subj '/CN=wish4u.co/O=Wishing Website/C=IN' -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
-
 # Enable remote access
 if [[ ! -d /root/.ssh ]]; then
     mkdir -p /root/.ssh
@@ -34,7 +31,7 @@ cat /root/ngxsetup/nginx/key >> /root/.ssh/authorized_keys
 apt-get install nginx -y
 
 #for ubuntu 20.04 with php7.4 version
-apt install php7.4-fpm php7.4-common php7.4-mysql php7.4-xml php7.4-xmlrpc php7.4-curl php7.4-gd php7.4-imagick php7.4-cli php7.4-dev php7.4-imap php7.4-mbstring php7.4-opcache php7.4-soap php7.4-zip unzip -y
+apt install php7.4-{fpm,common,mysql,xml,xmlrpc,curl,gd,imagick,cli,dev,imap,mbstring,opcache,soap,zip} unzip -y
 cp /root/ngxsetup/nginx/default /etc/nginx/sites-available/
 cp /root/ngxsetup/nginx/defaultssl /etc/nginx/sites-available/
 cp /root/ngxsetup/nginx/vhostsetup /usr/local/bin/vhostsetup
