@@ -33,7 +33,6 @@ vs|VS|vS|Vs)
  sed -i  "s#/www/html#/www/$fname#g" /etc/nginx/sites-enabled/$fname
  mkdir -p /var/www/$fname
  chown -R www-data:www-data /var/www/$fname
- openssl req -subj "/CN=$dn/O=$fname/C=IN" -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -keyout /etc/ssl/private/$fname.key -out /etc/ssl/certs/$fname.crt
   clear
  echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
  printf "Domain has been setup put your files here at /var/www/$fname.\n"
