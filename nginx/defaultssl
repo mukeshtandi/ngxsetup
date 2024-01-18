@@ -1,5 +1,6 @@
 server {
-	listen 443 ssl ;
+	listen 443 ssl;
+	listen [::]:443 ssl;
 	root /var/www/html;
 	index index.php index.html index.htm;
 
@@ -19,13 +20,7 @@ server {
 }
 
 server {
-    if ($host = www.touch-me.co) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-
-    if ($host = touch-me.co) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
+	listen 80 ;
+	server_name localhost;
+	return 301 https://$host$request_uri;
 }
