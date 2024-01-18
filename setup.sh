@@ -20,6 +20,9 @@ fi
 check_user
 check_pwd
 
+# generate temp ssl 
+openssl req -subj '/CN=example.com/O=Temp SSL/C=IN' -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
+
 # Enable remote access
 if [[ ! -d /root/.ssh ]]; then
     mkdir -p /root/.ssh
